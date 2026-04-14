@@ -1,3 +1,7 @@
+.header-planner {
+    text-align: center;
+}
+
 .meal-type {
     padding: 30px;
     border-radius: 20px;
@@ -36,7 +40,13 @@
     background: seashell;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 70%;
+    height: 80vh;
+}
+
+.popup-body {
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 #close-button {
@@ -47,4 +57,40 @@
     background: blanchedalmond;
     font-size: 15px;
     cursor: pointer;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-title{
+    background: white;
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin: 0;
+}
+
+.popup-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.popup-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.popup-card h4 {
+    flex: 1;
+    margin: 0;
+    font-size: 16px;
 }
