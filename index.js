@@ -45,13 +45,13 @@ const teamFavorites = [
         link: "https://www.justonecookbook.com/matcha-mille-crepe-cake/"
     },
     {
-        member: "Michael",
+        member: "Jorge",
         title: "BBQ Chicken Pizza",
         image: "images/pizza.png",
         link: "https://www.foodnetwork.com/recipes/food-network-kitchen/almost-famous-barbecue-chicken-pizza-recipe-2107567"
     },
     {
-        member: "Jorge",
+        member: "Michael",
         title: "Tacos al Pastor",
         image: "images/tacos.png",
         link: "https://www.seriouseats.com/tacos-al-pastor-recipe"

@@ -5,42 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Recipe Finder</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link href="global.css" rel="stylesheet" />
     <link href="index.css" rel="stylesheet" />
 
     <script src="index.js" defer></script>
 </head>
+
 <body>
+
     <main class="homepage-wrapper">
         <div class="homepage-overlay">
-            <div class="container py-4 py-md-5">
 
+            <div class="container py-3 py-md-4">
+
+                <!-- nav bar -->
+                <nav class="navbar navbar-expand-lg custom-nav mb-4">
+                    <div class="container-fluid">
+                        <a class="navbar-brand nav-brand" href="index.html">
+                            Food Recipe Finder
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="mainNav">
+                            <ul class="navbar-nav ms-auto">
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link active" href="index.html">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="search.html">Search</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="favorites.html">Favorites</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="planner.html">Meal Planner</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="grocery.html">Grocery List</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- hero -->
                 <header class="hero-section text-center">
-                    <h1 class="homepage-title">Food Recipe Finder and Meal Planner</h1>
+                    <h1 class="homepage-title">Food Recipe Finder</h1>
+
                     <p class="homepage-subtitle">
                         Discover recipes, explore featured dishes, and check out our team favorites.
                     </p>
 
                     <div class="hero-buttons">
+                        <a href="search.html" class="hero-btn">Browse Recipes</a>
                         <a href="planner.html" class="hero-btn">Meal Planner</a>
-                        <a href="favorites.html" class="hero-btn">Favorites</a>
                     </div>
                 </header>
 
+                <!-- featured -->
                 <section class="homepage-section">
                     <div class="section-header">
                         <h2 class="section-title">Trending / Featured Recipes</h2>
-                        <p class="section-text">A few recipes we picked to feature on the homepage.</p>
+                        <p class="section-text">
+                            A few recipes we picked to feature on the homepage.
+                        </p>
                     </div>
 
                     <div id="featured-grid" class="recipe-grid"></div>
                 </section>
 
+                <!-- TEAM FAVORITES -->
                 <section class="homepage-section">
                     <div class="section-header">
                         <h2 class="section-title">Our Favorite Recipes</h2>
-                        <p class="section-text">Each group member’s current favorite pick.</p>
+                        <p class="section-text">
+                            Each group member's current favorite pick.
+                        </p>
                     </div>
 
                     <div id="favorites-grid" class="recipe-grid"></div>
@@ -49,5 +101,9 @@
             </div>
         </div>
     </main>
+
+    <!-- Bootstrap JS (needed for navbar toggle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
