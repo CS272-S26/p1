@@ -1,6 +1,7 @@
-require('dotenv').config();
-const apiKey = process.env.RAPIDAPI_KEY;
-async function getRecipeJson(recipeName,tags="under_30_minutes",size =20) {
+
+
+
+export async function getRecipeJson(recipeName=null,tags="under_30_minutes",size =20) {
     let url;
     if (recipeName === null){
         url = `https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=${tags}`;
@@ -32,7 +33,7 @@ async function getRecipeJson(recipeName,tags="under_30_minutes",size =20) {
 
     try {
         const response = await fetch(url, options);
-        const result = await response.text();
+        const result = await response.json();
         console.log(result);
 
 
@@ -45,7 +46,7 @@ async function getRecipeJson(recipeName,tags="under_30_minutes",size =20) {
     }   
 
 
-async function getSimularRecipies(recipeID){
+export async function getSimularRecipies(recipeID){
     
     const url = `https://tasty.p.rapidapi.com/recipes/list-similarities?recipe_id=${recipeID}`;
     
