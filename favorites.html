@@ -11,6 +11,60 @@
     </head>
 
     <body>
+        <div>
+            <header class = "header-planner">
+                <!-- nav bar -->
+                <nav class="navbar navbar-expand-lg custom-nav mb-4">
+                    <div class="container-fluid">
+                        <a class="navbar-brand nav-brand" href="index.html">
+                            Food Recipe Finder
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="mainNav">
+                            <ul class="navbar-nav ms-auto">
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link active" href="index.html">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="search.html">Search</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="favorites.html">Favorites</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="planner.html">Meal Planner</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link custom-link" href="grocery.html">Grocery List</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <h1>Favorites</h1>
+                <p>Find your saved recipes here!</p>
+
+                <div>
+                    <p class="search-text">Search for more recipes to add here!</p>
+                    <a href="search.html" class="search-btn">Search</a>
+                </div>
+            </header>
+        </div>
+
+        <div class="container">
+            <div class="row gx-4 gy-4" id="favorites-list"></div>
+        </div>
 
     </body>
 </html>
