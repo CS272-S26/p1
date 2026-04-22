@@ -1,9 +1,9 @@
 
-import {getRecipeJson} from "./api/recipe_api.js"
+import {getRecipeJson, getTagsList} from "./api/recipe_api.js"
 
 function downloadJSON(data, filename = "data.json") {
     const json = JSON.stringify(data, null, 2);
-
+    console.log(json,'jsond download',data)
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
 
@@ -14,6 +14,31 @@ function downloadJSON(data, filename = "data.json") {
 
     URL.revokeObjectURL(url);
 }
+
+function filteredData(data, searchValue, tagSelectVal) {
+    
+    const search = searchValue.toLowerCase().trim();
+    console.log(data)
+    const filteredRecipe =  data.filter(recipe => {
+        // search match (name or description)
+        const matchesSearch =
+            !search ||
+            recipe.name.toLowerCase().includes(search) ||
+            (recipe.description || "").toLowerCase().includes(search.toLowerCase());
+        console.log(matchesSearch,'matches search')
+
+        console.log(recipe.tags);
+        const matchesTag =  
+            !tagSelectVal ||
+            (recipe.tags && recipe.tags.includes(tagSelectVal));
+        
+        console.log(matchesTag,'matches tag')
+        return matchesSearch || matchesTag;
+    });
+
+    return filteredRecipe
+}
+
 async function loadRecipeJson() {
     const res = await fetch("./data/recipes.json");
     const data = await res.json();
@@ -23,26 +48,53 @@ async function loadRecipeJson() {
 
 }
 
-async function handleSearch() {
-    const value = document.getElementById("searchInput").value;
 
-    const data = await loadRecipeJson();
-    // const data = await getRecipeJson();
+
+async function handleSearch() {
+    const searchValue = document.getElementById("searchInput").value;
+    const tagSelectVal = document.getElementById("tagSelect").value; 
+    const sizeReq = document.getElementById("sizeSelect").value;
+    
+    let dataFiltered;
+    console.log(searchValue);
+    console.log(tagSelectVal)
+    console.log('we here')
+    const response = await loadRecipeJson();
+    const data = response.results; 
+        
+    // const data = await getRecipeJson({recipeName=null,tags="under_30_minutes",size =sizeReq});
+    
     // downloadJSON(data);
+    if (searchValue){
+        dataFiltered = filteredData(data  ,searchValue,tagSelectVal);
+        
+    }else{
+        dataFiltered = data.filter(recipe => {
+            const validRecipe = (recipe.name !== null);
+            return validRecipe
+        });
+    }
+    console.log(typeof dataFiltered,dataFiltered.length);
+
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
 
 
-    
-    data.results.forEach(recipe => {
+    console.log(dataFiltered,"filted");
+    dataFiltered.forEach(recipe => {
         const card = createRecipeCard(recipe);
         resultsDiv.appendChild(card);
     });
 }
 
 function createRecipeCard(recipe) {
+
+    //  customize the overRow and Column for later ;)
+    const overRow = document.createElement("div");
+    overRow.className = 'row g-3';
+
     const col = document.createElement("div");
-    col.className = "col-md-6";
+    col.className = "col-md- ";
 
     const card = document.createElement("div");
     card.className = "card h-100 shadow-sm recipe-card";
@@ -50,10 +102,10 @@ function createRecipeCard(recipe) {
     card.dataset.slug = recipe.slug;
 
     const row = document.createElement("div");
-    row.className = "row g-0";
+    row.className = "row g-3";
 
     const imgCol = document.createElement('div');
-    imgCol.ClassName = "col-md-4"
+    imgCol.className = "col-md-4";
 
     const img = document.createElement("img");
     img.className = "img-fluid rounded-start";
@@ -85,7 +137,9 @@ function createRecipeCard(recipe) {
 
     col.appendChild(card);
 
-    return col;
+    overRow.appendChild(col);
+
+    return overRow;
      
 
     
@@ -120,3 +174,7 @@ document.addEventListener("click", (e) => {
     window.location.href = `https://tasty.co/recipe/${slug}`;
 })
 document.getElementById("searchBtn").addEventListener("click", handleSearch);
+
+// const taglistJson = await getTagsList();
+// console.log(taglistJson);
+// downloadJSON(taglistJson,"taglist.json");

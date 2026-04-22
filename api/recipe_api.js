@@ -1,7 +1,29 @@
 
 
 
-export async function getRecipeJson(recipeName=null,tags="under_30_minutes",size =20) {
+export async function getTagsList(){
+    const url = 'https://tasty.p.rapidapi.com/tags/list';
+    const options = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '0ebac4cdb3msh7f8fb12885ba8c1p1147bfjsn955ba55dd9a8',
+
+            'x-rapidapi-host': 'tasty.p.rapidapi.com',
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error(error);
+
+    }
+    
+}
+export async function getRecipeJson({recipeName=null,tags="under_30_minutes",size =20} = {}) {
     let url;
     if (recipeName === null){
         url = `https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=${tags}`;
@@ -67,3 +89,5 @@ const options = {
         console.error(error);
     }
 }
+
+
