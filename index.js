@@ -88,6 +88,7 @@ function renderRecipes(recipeArray, container, captionType) {
     });
 }
 
+
 window.addEventListener("DOMContentLoaded", () => {
     renderRecipes(featuredRecipes, featuredGrid, "featured");
     renderRecipes(teamFavorites, favoritesGrid, "team");

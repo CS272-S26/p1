@@ -1,1 +1,30 @@
 
+body {
+    font-family: Arial, sans-serif; /* No more Times New Roman! */
+    line-height: 1.6;
+    color: #060505;
+    background-color: #c7c4cb;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: seashell;
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.hero-btn:hover {
+    background: blanchedalmond;
+    color: black;
+}

@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
+        <!-- bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="global.css" rel="stylesheet" />
+        <link href="bootstrap.css" rel="stylesheet" />
+    
+        <script type="module" src="search.js"  defer></script>
+</head>
+<body>
+    <main>
+        <div class="container py-3 py-md-4">
+
+            <!-- nav bar -->
+            <nav class="navbar navbar-expand-lg custom-nav mb-4">
+                <div class="container-fluid">
+                    <a class="navbar-brand nav-brand" href="index.html">
+                        Food Recipe Finder
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="mainNav">
+                        <ul class="navbar-nav ms-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link custom-link active" href="index.html">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="search.html">Search</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="favorites.html">Favorites</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="planner.html">Meal Planner</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link custom-link" href="grocery.html">Grocery List</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="mb-4">
+                <div class="input-group shadow-sm rounded-pill overflow-hidden">
+            
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        class="form-control border-0 px-4"
+                        placeholder="Search recipes..."
+
+                    >
+            
+                    <button 
+                        class="btn btn-dark px-4 d-flex align-items-center justify-content-center"
+                        id="searchBtn"
+                    >
+                        <i class="bi bi-search text-white"></i>
+
+                    </button>
+            
+                </div>
+            </div>
+            <div class="container-fluid overflow-hidden">
+                <div class="row g-3 mb-4 align-items-center">
+
+               
+            
+                    <!-- Tags -->
+                     <!-- will have to make these values from data-->
+                    <div class="col-md-2">
+                        <select id="tagSelect" class="form-select">
+                            <option value="under_30_minutes">Under 30 Minutes</option>
+                            <option value="under_15_minutes">Under 15 Minutes</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="low_carb">Low Carb</option>
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                
+                    <!-- Size -->
+                    <div class="col-md-2">
+                        <select id="sizeSelect" class="form-select">
+                            <option value="10">10</option>
+                            <option value="20" selected>20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+    
+                    <!-- Search filter button -->
+                     <div class = "col-md-2">
+                        <button class="btn btn-dark" id="filterBtn">
+                            <i class="bi bi-search text-white"></i>
+    
+                        </button>
+    
+                     </div>
+                </div>
+            </div>
+            
+            <!-- LIST OF RECIPIES-->
+            <div id="results" class="row g-6">
+
+                <!-- <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="..." class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Some text here</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="..." class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Some text here</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            
+                <!-- <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="..." class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Some text here</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             -->
+            </div>
+            
+        </div>
+    </main>
+
+</body>
+</html>
