@@ -1,6 +1,6 @@
 
 import {getRecipeJson, getTagsList} from "./api/recipe_api.js"
-
+import {ManageFavorites} from "./favorites.js"
 function downloadJSON(data, filename = "data.json") {
     const json = JSON.stringify(data, null, 2);
     console.log(json,'jsond download',data)
@@ -49,6 +49,120 @@ async function loadRecipeJson() {
 }
 
 
+function createRecipeCard(recipe) {
+
+    //  customize the overRow and Column for later ;)
+    const overRow = document.createElement("div");
+    overRow.className = 'row g-3';
+
+    const col = document.createElement("div");
+    col.className = "col-md- ";
+
+    const card = document.createElement("div");
+    card.className = "card h-100 shadow-sm recipe-card";
+    card.dataset.id = `${recipe.id}`;
+    card.dataset.slug = recipe.slug;
+
+    const imageRow = document.createElement("div");
+    // FAVORITE SECTION, WILL TRY TO MAKE SURE THE USER CAN ACTUALLY PRESS THE FAVORITE STAR
+
+    // DESCRIPTION ALONG WITH IMAGE 
+    const row = document.createElement("div");
+    row.className = "row g-3";
+
+    const imgCol = document.createElement('div');
+    imgCol.className = "col-md-4";
+
+    const img = document.createElement("img");
+    img.className = "img-fluid rounded-start";
+    img.src = recipe.thumbnail_url;
+
+    const recipeCol = document.createElement("div");
+    recipeCol.className = "col-md-6";
+
+    const recipeCard = document.createElement("div");
+    recipeCard.className = "card-body";
+
+    const recipeName = document.createElement("h5");
+    recipeName.textContent = recipe.name;
+
+    const recipeDescripiton = document.createElement("p");
+    recipeDescripiton.textContent = recipe.description || "no description";
+
+
+    
+    const favoriteCol = document.createElement("div");
+    favoriteCol.className = "col-md-2";
+
+    const favoriteStar = document.createElement("div");
+    favoriteStar.className = "bi bi-star";
+    favoriteStar.style.fontSize = "1.5rem"; // or 2rem for bigger   
+    
+    favoriteStar.style.cursor = "pointer";
+
+    favoriteStar.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevents redirect
+        console.log("favorited:", recipe.id);
+
+        // toggle filled star
+        favoriteStar.classList.toggle("bi-star");
+        favoriteStar.classList.toggle("bi-star-fill");
+
+        // fix for responsiveness
+        card.class = "card h-100 shadow-sm recipe-card";
+        
+        // add to storage
+        
+        ManageFavorites(recipe);
+    })
+
+    recipeCard.appendChild(recipeName);
+    recipeCard.appendChild(recipeDescripiton);
+
+    recipeCol.appendChild(recipeCard);
+
+    imgCol.appendChild(img);
+    favoriteCol.appendChild(favoriteStar);
+    row.appendChild(favoriteCol);
+    row.appendChild(imgCol);
+    row.appendChild(recipeCol);
+
+
+    card.appendChild(row);
+
+    col.appendChild(card);
+
+    overRow.appendChild(col);
+
+    return overRow;
+     
+
+    
+    // return `
+    // <div class="col-md-6">
+    //  
+    //     <div class="card h-100 shadow-sm recipe-card" data-id="${recipe.id}">
+            // <div class= "container-fluid d-flex"> </div>
+
+    //         <div class="row g-0">
+    //             <div class="col-md-4">
+
+    //                 <img src="${recipe.thumbnail_url}" class="img-fluid rounded-start">
+    //             </div>
+    //             <div class="col-md-8">
+    //              <div class="row">
+    //                 <div class="card-body">
+    //                     <h5>${recipe.name}</h5>
+    //                     <p>${recipe.description || "No description"}</p>
+    //                  </div>
+//                  </div>
+
+    //             </div>
+    //         </div>
+    //     </div>
+    // </div>
+    // `;
+}
 
 async function handleSearch() {
     const searchValue = document.getElementById("searchInput").value;
@@ -87,80 +201,6 @@ async function handleSearch() {
     });
 }
 
-function createRecipeCard(recipe) {
-
-    //  customize the overRow and Column for later ;)
-    const overRow = document.createElement("div");
-    overRow.className = 'row g-3';
-
-    const col = document.createElement("div");
-    col.className = "col-md- ";
-
-    const card = document.createElement("div");
-    card.className = "card h-100 shadow-sm recipe-card";
-    card.dataset.id = `${recipe.id}`;
-    card.dataset.slug = recipe.slug;
-
-    const row = document.createElement("div");
-    row.className = "row g-3";
-
-    const imgCol = document.createElement('div');
-    imgCol.className = "col-md-4";
-
-    const img = document.createElement("img");
-    img.className = "img-fluid rounded-start";
-    img.src = recipe.thumbnail_url;
-
-    const recipeCol = document.createElement("div");
-    recipeCol.className = "col-md-8";
-
-    const recipeCard = document.createElement("div");
-    recipeCard.className = "card-body";
-
-    const recipeName = document.createElement("h5");
-    recipeName.textContent = recipe.name;
-
-    const recipeDescripiton = document.createElement("p");
-    recipeDescripiton.textContent = recipe.description || "no description";
-
-    recipeCard.appendChild(recipeName);
-    recipeCard.appendChild(recipeDescripiton);
-
-    recipeCol.appendChild(recipeCard);
-
-    imgCol.appendChild(img);
-
-    row.appendChild(imgCol);
-    row.appendChild(recipeCol);
-
-    card.appendChild(row);
-
-    col.appendChild(card);
-
-    overRow.appendChild(col);
-
-    return overRow;
-     
-
-    
-    // return `
-    // <div class="col-md-6">
-    //     <div class="card h-100 shadow-sm recipe-card" data-id="${recipe.id}">
-    //         <div class="row g-0">
-    //             <div class="col-md-4">
-    //                 <img src="${recipe.thumbnail_url}" class="img-fluid rounded-start">
-    //             </div>
-    //             <div class="col-md-8">
-    //                 <div class="card-body">
-    //                     <h5>${recipe.name}</h5>
-    //                     <p>${recipe.description || "No description"}</p>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
-    // `;
-}
 const data = await handleSearch()
 console.log('here ');
 
