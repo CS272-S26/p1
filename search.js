@@ -199,6 +199,7 @@ async function handleSearch() {
         const card = createRecipeCard(recipe);
         resultsDiv.appendChild(card);
     });
+    favorites = getFavorites()
 }
 
 const data = await handleSearch()
