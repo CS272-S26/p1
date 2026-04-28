@@ -5,4 +5,4 @@ Once users find recipes they like, they can save them to a favorites list using 
 The website will include these pages: a homepage, search page, a recipe requests page, favorites, meal planner, grocery list and an About page. We will use Bootstrap for styling, a shared global CSS and a consistent navigation bar across all pages. As for user input, the user will be able to select, add, remove recipes from their planner and their favorites page. Our team plans to build something that actually feels helpful and can be used by all of us while meeting the project requirements.
 
 Enjoy our website :)
-- The Recipe Lab
+The Recipe Lab
