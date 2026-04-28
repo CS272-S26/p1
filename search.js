@@ -1,6 +1,5 @@
 
 import {getRecipeJson, getTagsList} from "./api/recipe_api.js"
-// import {ManageFavorites} from "./favorites.js"
 function downloadJSON(data, filename = "data.json") {
     const json = JSON.stringify(data, null, 2);
     console.log(json,'jsond download',data)
@@ -51,21 +50,17 @@ async function loadRecipeJson() {
     return data; 
 
 }
-function proxygetitem(favorites){
-    localStorage.getItem("favorites", JSON.stringify([]));
-    console.log(getItem("favorites", JSON.stringify([])))
-
-}
 
 function getFavorites() {
     
     console.log(JSON.parse(localStorage.getItem("favorites")) || [])
     // Checking if have past saved favorites
-    const favorites = localStorage.getItem("favorites");
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     if (!favorites) {
         return [];
     }
     else{
+        console.log(favorites, "else loop getfavorites")
         return favorites
     }
 }
@@ -80,23 +75,12 @@ function addFavorite(recipe,favorites) {
 
 }
 
-function removeFavorite(id) {
-    let favorites = x();
-    if(favorites.length > 0){
+function removeFavorite(favorites,id) {
+
         favorites = favorites.filter(recipe => recipe.id !== id);
         saveFavorites(favorites);
         return favorites
-    }else{
-        return []
-    }
 
-}
-
-function getFavIdList(favRecipe,favList){
-    console.log(favRecipe.id)
-    console.assert(typeof favRecipe.id === "number",'is a number')
-    favList.push(favRecipe.id)
-    return favList
 }
 
 // Save favorites is a setter method,
@@ -118,32 +102,20 @@ export function ManageFavorites(recipe){
 
     // step 2, get all the favorites have to change this to an item that actually exists still in search
     let favorites = getFavorites();
-    console.log(favorites);
+    console.log(favorites, typeof favorites);
 
     // if the ID is in the favorites list of id then remove it, else add it
-    const favList = []
-    console.log(favorites.length,favorites)
-    if (favorites.length !== 0){
-        const listFavoritesID = favorites.array.forEach(favrecipe => {
-            const IDList = getFavIdList(favrecipe,favList)
-            return IDList
-        });
-        console.log(listFavoritesID,'list favorites ID')
-        const isFavorite = listFavoritesID.includes(); // this line determines if I remove the ID or keep it
 
-        if(isFavorite){
-            favorites = removeFavorite(ID);
-        }else{
-            favorites = addFavorite(recipe,favorites);
-        }
-    }
-    else{ // step 3 assuming no favorites, add favorite
-        favorites = addFavorite(recipe,favorites);
-    }
+    console.log(favorites.length,favorites);
+
+    const isFavorite = favorites.filter(fav => fav.id === ID);
     
-  
+    console.log(isFavorite,'Is favorite',isFavorite.length)
+    favorites = addFavorite(recipe,favorites);
+    if (isFavorite.length === 1 || isFavorite.length > 1) {
+        favorites = removeFavorite(favorites, ID);
+    }
     return favorites
-
 
 }
 
@@ -215,7 +187,6 @@ function createRecipeCard(recipe) {
         console.log(favorites,'manage favorites in createrecipecard');
         saveSearchStorage(favorites);
 
-        proxygetitem(favorites);
         
     })
 
@@ -299,7 +270,7 @@ async function handleSearch() {
     resultsDiv.innerHTML = "";
 
 
-    // console.log(dataFiltered,"filted");
+    console.log(dataFiltered,"filted");
     dataFiltered.forEach(recipe => {
         const card = createRecipeCard(recipe);
         resultsDiv.appendChild(card);
