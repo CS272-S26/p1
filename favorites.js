@@ -2,9 +2,14 @@
 
 export function getFavorites() {
     console.log(JSON.parse(localStorage.getItem("favorites")) || [])
-// Checking if have past saved favorites
-if (!localStorage.getItem("favorites")) {
-    localStorage.setItem("favorites", JSON.stringify([]));
+    // Checking if have past saved favorites
+    // if (!localStorage.getItem("favorites")) {
+    //     localStorage.setItem("favorites", JSON.stringify([]));
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+}
+
+function saveFavorites(favorites) {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
 const testFavorites = [
@@ -19,7 +24,7 @@ const testFavorites = [
         image: "https://via.placeholder.com/300x200"
     }
 ];
-}
+
 localStorage.setItem("favorites", JSON.stringify(testFavorites));
 
 /**
@@ -82,11 +87,6 @@ function loadFavorites() {
 }
 
 loadFavorites()
-
-
-function saveFavorites(favorites) {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-}
 
 export function ManageFavorites(recipe){
 
