@@ -77,8 +77,17 @@ function createFavoriteCard(favorite) {
 function loadFavorites() {
     const favoritesList = JSON.parse(localStorage.getItem("favorites"));
     const favoritesContainer = document.getElementById("favorites-list");
+    const emptyMessage = document.getElementById("empty-message");
 
     favoritesContainer.replaceChildren();
+
+    // Display no favorites yet message
+    if (favoritesList.length === 0) {
+        emptyMessage.style.display = "block";
+        return;
+    }
+
+    emptyMessage.style.display = "none";
 
     for (let favorite of favoritesList) {
         const favoriteCard = createFavoriteCard(favorite);
