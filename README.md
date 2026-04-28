@@ -1,3 +1,8 @@
 We have created a Recipe Finder + Meal Planner website that helps users look up meal ideas, save recipes to their favorites and plan what to eat throughout the week. On this website, they can search for recipes using keywords and filters, and we are planning to load the recipe data dynamically from an external API. 
+
 Once users find recipes they like, they can save them to a favorites list using JS localStorage property. This will populate in the Favorites page. They can also add recipes to a weekly meal planner which can be organized by meal type (breakfast, lunch, dinner, etc). Next, based on their selected meals, our site will be able to generate a simple grocery list by combining the meal ingredients, which can help users plan their next trip to the grocery store!
+
 The website will include these pages: a homepage, search page, a recipe requests page, favorites, meal planner, grocery list and an About page. We will use Bootstrap for styling, a shared global CSS and a consistent navigation bar across all pages. As for user input, the user will be able to select, add, remove recipes from their planner and their favorites page. Our team plans to build something that actually feels helpful and can be used by all of us while meeting the project requirements.
+
+Enjoy our website :)
+- The Recipe Lab
