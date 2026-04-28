@@ -43,7 +43,7 @@ function filteredData(data, searchValue, tagSelectVal) {
     return filteredRecipe
 }
 
-async function loadRecipeJson() {
+async function loadRecipeJson() { 
     const res = await fetch("./data/recipes.json");
     const data = await res.json();
 
