@@ -63,28 +63,32 @@ function createFavoriteCard(favorite) {
 }
 
 function loadFavorites() {
-    const favoritesList = JSON.parse(localStorage.getItem("favorites"));
+    const favoritesList = JSON.parse(localStorage.getItem("favorites")) || [];
     const favoritesContainer = document.getElementById("favorites-list");
-    console.log(favoritesContainer,document.readyState,'loading favorites');
+    const emptyMessage = document.getElementById("empty-message");
+
     if (!favoritesContainer) {
         console.warn("favorites-list not found on this page");
-        return; // 🚨 stop here
-    }
-    if (favoritesList){
-        console.log(favoritesList,favoritesContainer);
-        if(favoritesContainer){
-            favoritesContainer.replaceChildren();
-
-        }
-        for (let favorite of favoritesList) {
-            const favoriteCard = createFavoriteCard(favorite);
-            console.log(favoriteCard)
-            favoritesContainer.appendChild(favoriteCard);
-        }
-    }else{
-        console.log('empty favorites list')
+        return;
     }
 
+    favoritesContainer.replaceChildren();
+
+    if (favoritesList.length === 0) {
+        if (emptyMessage) {
+            emptyMessage.style.display = "block";
+        }
+        return;
+    }
+
+    if (emptyMessage) {
+        emptyMessage.style.display = "none";
+    }
+
+    for (let favorite of favoritesList) {
+        const favoriteCard = createFavoriteCard(favorite);
+        favoritesContainer.appendChild(favoriteCard);
+    }
 }
 
 console.log(document.getElementById("favorites-list"),"outside of the");
