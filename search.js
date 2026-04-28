@@ -1,6 +1,6 @@
 
 import {getRecipeJson, getTagsList} from "./api/recipe_api.js"
-import {ManageFavorites} from "./favorites.js"
+// import {ManageFavorites} from "./favorites.js"
 function downloadJSON(data, filename = "data.json") {
     const json = JSON.stringify(data, null, 2);
     console.log(json,'jsond download',data)
@@ -15,10 +15,14 @@ function downloadJSON(data, filename = "data.json") {
     URL.revokeObjectURL(url);
 }
 
+const saveSearchStorage = (favorites) => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
 function filteredData(data, searchValue, tagSelectVal) {
     
     const search = searchValue.toLowerCase().trim();
     console.log(data)
+    
     const filteredRecipe =  data.filter(recipe => {
         // search match (name or description)
         const matchesSearch =
@@ -47,7 +51,101 @@ async function loadRecipeJson() {
     return data; 
 
 }
+function proxygetitem(favorites){
+    localStorage.getItem("favorites", JSON.stringify([]));
+    console.log(getItem("favorites", JSON.stringify([])))
 
+}
+
+function getFavorites() {
+    
+    console.log(JSON.parse(localStorage.getItem("favorites")) || [])
+    // Checking if have past saved favorites
+    const favorites = localStorage.getItem("favorites");
+    if (!favorites) {
+        return [];
+    }
+    else{
+        return favorites
+    }
+}
+
+function addFavorite(recipe,favorites) {
+
+
+    favorites.push(recipe);
+    saveFavorites(favorites);
+    console.log(recipe,'pushing');
+    return favorites
+
+}
+
+function removeFavorite(id) {
+    let favorites = x();
+    if(favorites.length > 0){
+        favorites = favorites.filter(recipe => recipe.id !== id);
+        saveFavorites(favorites);
+        return favorites
+    }else{
+        return []
+    }
+
+}
+
+function getFavIdList(favRecipe,favList){
+    console.log(favRecipe.id)
+    console.assert(typeof favRecipe.id === "number",'is a number')
+    favList.push(favRecipe.id)
+    return favList
+}
+
+// Save favorites is a setter method,
+function saveFavorites(favorites) {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+export function ManageFavorites(recipe){
+
+    // collects the id of the user
+    const ID  = recipe.id || null;
+
+    // if it's not a recipe throw and error
+    if (!recipe){
+        console.log("recipe is null, check favorites.js [ManageFavorites]")
+        throw new Error("Recipe must have a valid ID");
+    }
+
+    // else get the favorites list
+
+    // step 2, get all the favorites have to change this to an item that actually exists still in search
+    let favorites = getFavorites();
+    console.log(favorites);
+
+    // if the ID is in the favorites list of id then remove it, else add it
+    const favList = []
+    console.log(favorites.length,favorites)
+    if (favorites.length !== 0){
+        const listFavoritesID = favorites.array.forEach(favrecipe => {
+            const IDList = getFavIdList(favrecipe,favList)
+            return IDList
+        });
+        console.log(listFavoritesID,'list favorites ID')
+        const isFavorite = listFavoritesID.includes(); // this line determines if I remove the ID or keep it
+
+        if(isFavorite){
+            favorites = removeFavorite(ID);
+        }else{
+            favorites = addFavorite(recipe,favorites);
+        }
+    }
+    else{ // step 3 assuming no favorites, add favorite
+        favorites = addFavorite(recipe,favorites);
+    }
+    
+  
+    return favorites
+
+
+}
 
 function createRecipeCard(recipe) {
 
@@ -56,7 +154,7 @@ function createRecipeCard(recipe) {
     overRow.className = 'row g-3';
 
     const col = document.createElement("div");
-    col.className = "col-md- ";
+    col.className = "col-md-0";
 
     const card = document.createElement("div");
     card.className = "card h-100 shadow-sm recipe-card";
@@ -111,9 +209,14 @@ function createRecipeCard(recipe) {
         // fix for responsiveness
         card.class = "card h-100 shadow-sm recipe-card";
         
-        // add to storage
+        // add to storage step 1 
         
-        ManageFavorites(recipe);
+        const favorites = ManageFavorites(recipe);
+        console.log(favorites,'manage favorites in createrecipecard');
+        saveSearchStorage(favorites);
+
+        proxygetitem(favorites);
+        
     })
 
     recipeCard.appendChild(recipeName);
@@ -124,6 +227,7 @@ function createRecipeCard(recipe) {
     imgCol.appendChild(img);
     favoriteCol.appendChild(favoriteStar);
     row.appendChild(favoriteCol);
+    row.appendChild(imageRow);
     row.appendChild(imgCol);
     row.appendChild(recipeCol);
 
@@ -176,13 +280,14 @@ async function handleSearch() {
     const response = await loadRecipeJson();
     const data = response.results; 
         
-    // const data = await getRecipeJson({recipeName=null,tags="under_30_minutes",size =sizeReq});
+    // const data = await getRecipeJson({recipeName: null,tags:"under_30_minutes",size :sizeReq});
     
     // downloadJSON(data);
     if (searchValue){
         dataFiltered = filteredData(data  ,searchValue,tagSelectVal);
         
     }else{
+        console.log(data)
         dataFiltered = data.filter(recipe => {
             const validRecipe = (recipe.name !== null);
             return validRecipe
@@ -194,12 +299,14 @@ async function handleSearch() {
     resultsDiv.innerHTML = "";
 
 
-    console.log(dataFiltered,"filted");
+    // console.log(dataFiltered,"filted");
     dataFiltered.forEach(recipe => {
         const card = createRecipeCard(recipe);
         resultsDiv.appendChild(card);
     });
-    favorites = getFavorites()
+    // // TODO: global favorite object. 
+    // const favorites = getGlobalFavorites();
+    // console.log(favorites)
 }
 
 const data = await handleSearch()

@@ -23,7 +23,7 @@ export async function getTagsList(){
     }
     
 }
-export async function getRecipeJson({recipeName=null,tags="under_30_minutes",size =20} = {}) {
+export async function getRecipeJson({recipeName=null,tags="under_30_minutes",size =100} = {}) {
     let url;
     if (recipeName === null){
         url = `https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=${tags}`;
