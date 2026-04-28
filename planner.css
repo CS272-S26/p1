@@ -13,6 +13,13 @@ body {
 
 .header-planner {
     text-align: center;
+    
+}
+
+.planner-title {
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
 .meal-type {
