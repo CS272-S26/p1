@@ -1,10 +1,5 @@
 let currentMeal = null;
 
-localStorage.setItem("favorites", JSON.stringify([
-  { id: 1, name: "Avocado Toast", image: "https://placehold.co/200" },
-  { id: 2, name: "Smoothie", image: "https://placehold.co/200" }
-]));
-
 // Popup recipe adder
 const popup = document.getElementById("recipe-popup");
 const closeBtn = document.getElementById("close-button");
