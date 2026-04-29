@@ -1,6 +1,4 @@
 body {
-    margin: 0;
-    min-height: 100vh;
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
         url("images/food-bg.jpg");
@@ -8,7 +6,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .homepage-wrapper {
@@ -39,29 +36,6 @@ body {
     margin: 0 auto 22px;
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.88);
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.hero-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 10px;
-    background: seashell;
-    color: black;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s ease;
-}
-
-.hero-btn:hover {
-    background: blanchedalmond;
-    color: black;
 }
 
 .homepage-section {
@@ -167,40 +141,4 @@ body {
     .recipe-image {
         height: 240px;
     }
-}
-
-.custom-nav {
-    background: rgba(0, 0, 0, 0.35);
-    border-radius: 14px;
-    padding: 10px 14px;
-}
-
-.nav-brand {
-    color: white;
-    font-weight: 700;
-}
-
-.nav-brand:hover {
-    color: white;
-}
-
-.custom-link {
-    color: white;
-    font-weight: 500;
-}
-
-.custom-link:hover {
-    color: blanchedalmond;
-}
-
-.custom-link.active {
-    color: blanchedalmond !important;
-}
-
-.navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-.navbar-toggler-icon {
-    filter: invert(1);
 }

@@ -1,11 +1,7 @@
-.header-planner {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
 .favorites-title {
     font-weight: 800;
     margin-bottom: 12px;
+    color: white;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
@@ -13,27 +9,11 @@
     font-weight: bold;
 }
 
-.search-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 10px;
-    background: seashell;
-    color: black;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s ease;
-}
-
-.search-btn:hover {
-    background: blanchedalmond;
-    color: black;
-}
-
 .favorite-card {
     background-color: antiquewhite;
     border-radius: 20px;
     padding: 15px;
-    color: white;
+    color: black;
     height: 100%;
 }
 
@@ -48,7 +28,7 @@
 .favorite-title {
     margin: 10px 0;
     font-size: 20px;
-    color:black
+    color: black;
 }
 
 .remove-btn {
@@ -57,4 +37,12 @@
     padding: 8px 14px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: blanchedalmond;
+}
+
+.empty-message {
+    color: white;
 }

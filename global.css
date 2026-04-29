@@ -1,9 +1,10 @@
-
 body {
-    font-family: Arial, sans-serif; /* No more Times New Roman! */
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
-    color: #060505;
     background-color: #c7c4cb;
+    color: #060505;
 }
 
 .hero-buttons {
@@ -13,7 +14,10 @@ body {
     flex-wrap: wrap;
 }
 
-.hero-btn {
+.hero-btn,
+.search-btn,
+.grocery-button,
+.add-button {
     display: inline-block;
     padding: 10px 18px;
     border-radius: 10px;
@@ -21,10 +25,52 @@ body {
     color: black;
     text-decoration: none;
     font-weight: 600;
+    border: none;
+    cursor: pointer;
     transition: 0.2s ease;
 }
 
-.hero-btn:hover {
+.hero-btn:hover,
+.search-btn:hover,
+.grocery-button:hover,
+.add-button:hover {
     background: blanchedalmond;
     color: black;
+}
+
+.custom-nav {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 14px;
+    padding: 10px 14px;
+}
+
+.nav-brand {
+    color: white;
+    font-weight: 700;
+}
+
+.nav-brand:hover {
+    color: white;
+}
+
+.custom-link {
+    color: white;
+    font-weight: 500;
+}
+
+.custom-link:hover,
+.custom-link.active {
+    color: blanchedalmond !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.hidden {
+    display: none;
 }

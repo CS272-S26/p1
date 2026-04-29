@@ -1,33 +1,6 @@
-.custom-nav {
-    background: rgba(0, 0, 0, 0.35);
-    border-radius: 14px;
-    padding: 10px 14px;
-}
-
-.nav-brand {
-    color: white;
-    font-weight: 700;
-}
-
-.nav-brand:hover {
-    color: white;
-}
-
-.custom-link {
-    color: white;
-    font-weight: 500;
-}
-
-.custom-link:hover {
-    color: blanchedalmond;
-}
-
-.custom-link.active {
-    color: blanchedalmond !important;
-}
-
 .grocery-header {
     text-align: center;
+    color: white;
 }
 
 .grocery-box {
@@ -41,18 +14,6 @@
 .grocery-actions {
     display: flex;
     justify-content: flex-end;
-}
-
-.grocery-button {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: seashell;
-}
-
-.grocery-button:hover {
-    background: blanchedalmond;
 }
 
 .grocery-list {
@@ -87,10 +48,7 @@
 .empty-message {
     text-align: center;
     margin-top: 20px;
-}
-
-.hidden {
-    display: none;
+    color: black;
 }
 
 .grocery-warning {
