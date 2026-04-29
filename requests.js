@@ -48,7 +48,17 @@ form.addEventListener("submit", (e) => {
     saveRequests(requests);
 
     form.reset();
-    loadRequests();
+    // loadRequests();
+
+    const msg = document.getElementById("confirmation-message");
+    msg.textContent = "Thanks! Your request has been submitted.";
+    msg.style.display = "block";
+
+    // Time message appearance
+    setTimeout(() => {
+        msg.style.display = "none";
+    }, 3000);
+
 });
 
-loadRequests();
+//loadRequests();
