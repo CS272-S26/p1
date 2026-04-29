@@ -31,33 +31,6 @@ const featuredRecipes = [
     }
 ];
 
-const teamFavorites = [
-    {
-        member: "Aleeya",
-        title: "Spaghetti Carbonara",
-        image: "images/spcarbonara.png",
-        link: "https://www.simplyrecipes.com/recipes/spaghetti_alla_carbonara/"
-    },
-    {
-        member: "Xixi",
-        title: "Matcha Crepe Cake",
-        image: "images/matcha.png",
-        link: "https://www.justonecookbook.com/matcha-mille-crepe-cake/"
-    },
-    {
-        member: "Jorge",
-        title: "BBQ Chicken Pizza",
-        image: "images/pizza.png",
-        link: "https://www.foodnetwork.com/recipes/food-network-kitchen/almost-famous-barbecue-chicken-pizza-recipe-2107567"
-    },
-    {
-        member: "Michael",
-        title: "Tacos al Pastor",
-        image: "images/tacos.png",
-        link: "https://www.seriouseats.com/tacos-al-pastor-recipe"
-    }
-];
-
 const featuredGrid = document.getElementById("featured-grid");
 const favoritesGrid = document.getElementById("favorites-grid");
 
@@ -88,8 +61,41 @@ function renderRecipes(recipeArray, container, captionType) {
     });
 }
 
+async function fetchTeamFavorites() {
+    const members = ["Aleeya", "Xixi", "Jorge", "Michael"];
+    const teamFavorites = [];
 
-window.addEventListener("DOMContentLoaded", () => {
+    for (let i = 0; i < members.length; i++) {
+        const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+        const data = await response.json();
+        const meal = data.meals[0];
+
+        teamFavorites.push({
+            member: members[i],
+            title: meal.strMeal,
+            image: meal.strMealThumb,
+            link: meal.strSource || meal.strYoutube || "#"
+        });
+    }
+
+    return teamFavorites;
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
     renderRecipes(featuredRecipes, featuredGrid, "featured");
-    renderRecipes(teamFavorites, favoritesGrid, "team");
+
+    favoritesGrid.innerHTML = `<p class="section-text">Loading team favorites...</p>`;
+
+    try {
+        const teamFavorites = await fetchTeamFavorites();
+        renderRecipes(teamFavorites, favoritesGrid, "team");
+    } catch (error) {
+        console.error("Failed to load external recipes:", error);
+
+        favoritesGrid.innerHTML = `
+            <p class="section-text">
+                Could not load team favorites right now. Please try again later.
+            </p>
+        `;
+    }
 });
