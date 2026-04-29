@@ -90,3 +90,7 @@
 .popup-planner.hidden {
     display: none !important;
 }
+
+.add-button {
+    margin-bottom:20px;
+}
