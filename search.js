@@ -53,20 +53,17 @@ async function loadRecipeJson() {
 
 function getFavorites() {
     
-    console.log(JSON.parse(localStorage.getItem("favorites")) || [])
     // Checking if have past saved favorites
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     if (!favorites) {
         return [];
     }
     else{
-        console.log(favorites, "else loop getfavorites")
         return favorites
     }
 }
 
 function addFavorite(recipe,favorites) {
-
 
     favorites.push(recipe);
     saveFavorites(favorites);
@@ -87,39 +84,9 @@ function removeFavorite(favorites,id) {
 function saveFavorites(favorites) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
 }
-export function ManageFavorites(recipe){
 
-    // collects the id of the user
-    const ID  = recipe.id || null;
 
-    // if it's not a recipe throw and error
-    if (!recipe){
-        console.log("recipe is null, check favorites.js [ManageFavorites]")
-        throw new Error("Recipe must have a valid ID");
-    }
-
-    // else get the favorites list
-
-    // step 2, get all the favorites have to change this to an item that actually exists still in search
-    let favorites = getFavorites();
-    console.log(favorites, typeof favorites);
-
-    // if the ID is in the favorites list of id then remove it, else add it
-
-    console.log(favorites.length,favorites);
-
-    const isFavorite = favorites.filter(fav => fav.id === ID);
-    
-    console.log(isFavorite,'Is favorite',isFavorite.length)
-    favorites = addFavorite(recipe,favorites);
-    if (isFavorite.length === 1 || isFavorite.length > 1) {
-        favorites = removeFavorite(favorites, ID);
-    }
-    return favorites
-
-}
-
-function createRecipeCard(recipe) {
+function createRecipeCard(recipe,isFavorite,favorites) {
 
     //  customize the overRow and Column for later ;)
     const overRow = document.createElement("div");
@@ -131,6 +98,7 @@ function createRecipeCard(recipe) {
     const card = document.createElement("div");
     card.className = "card h-100 shadow-sm recipe-card";
     card.dataset.id = `${recipe.id}`;
+    card.id = recipe.id;
     card.dataset.slug = recipe.slug;
 
     const imageRow = document.createElement("div");
@@ -159,31 +127,55 @@ function createRecipeCard(recipe) {
     const recipeDescripiton = document.createElement("p");
     recipeDescripiton.textContent = recipe.description || "no description";
 
-
-    
     const favoriteCol = document.createElement("div");
     favoriteCol.className = "col-md-2";
 
     const favoriteStar = document.createElement("div");
+
     favoriteStar.className = "bi bi-star";
     favoriteStar.style.fontSize = "1.5rem"; // or 2rem for bigger   
     
     favoriteStar.style.cursor = "pointer";
 
+    console.log('isFavorite 171',isFavorite);
+    if (isFavorite){
+            favoriteStar.classList.add("bi-star-fill");
+            favoriteStar.classList.remove("bi-star");
+    };
+
+
     favoriteStar.addEventListener("click", (e) => {
         e.stopPropagation(); // prevents redirect
-        console.log("favorited:", recipe.id);
+        const isFavorite = favorites.some(fav => fav.id === recipe.id);
+        console.log("is favorite createrecipcard",isFavorite);
+        console.log(isFavorite,favorites);
+        if (isFavorite) {
+            
+            favorites = removeFavorite(favorites, recipe.id);
+            favoriteStar.classList.remove("bi-star-fill");
+            favoriteStar.classList.add("bi-star");
+
+            console.log('favorite');
+        }else{
+            favorites = addFavorite(recipe,favorites);
+            favoriteStar.classList.remove("bi-star");
+            favoriteStar.classList.add("bi-star-fill");
+            
+            console.log('no favorite');
+
+        }
 
         // toggle filled star
-        favoriteStar.classList.toggle("bi-star");
-        favoriteStar.classList.toggle("bi-star-fill");
+
+        // favoriteStar.classList.toggle("bi-star");
+        // favoriteStar.classList.toggle("bi-star-fill");
 
         // fix for responsiveness
         card.class = "card h-100 shadow-sm recipe-card";
         
         // add to storage step 1 
         
-        const favorites = ManageFavorites(recipe);
+        
         console.log(favorites,'manage favorites in createrecipecard');
         saveSearchStorage(favorites);
 
@@ -269,10 +261,13 @@ async function handleSearch() {
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
 
-
+    const favorites = getFavorites()
     console.log(dataFiltered,"filted");
     dataFiltered.forEach(recipe => {
-        const card = createRecipeCard(recipe);
+        
+        const isFavorite = favorites.some(fav => fav.id === recipe.id);
+        console.log(isFavorite,favorites,'290',recipe.id)
+        const card = createRecipeCard(recipe,isFavorite,favorites);
         resultsDiv.appendChild(card);
     });
     // // TODO: global favorite object. 
@@ -296,4 +291,4 @@ document.getElementById("searchBtn").addEventListener("click", handleSearch);
 
 // const taglistJson = await getTagsList();
 // console.log(taglistJson);
-// downloadJSON(taglistJson,"taglist.json");
+// downloadJSON(taglistJson,"taglist.json"); 
