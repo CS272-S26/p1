@@ -68,12 +68,12 @@ function loadPopupRecipes() {
         card.classList.add("popup-card");
 
         const img = document.createElement("img");
-        img.src = recipe.image;
+        img.src = recipe.thumbnail_url;
         img.alt = recipe.name;
 
         const title = document.createElement("h5");
         title.textContent = recipe.name;
-
+        title.className = "text-dark"
         const selectBtn = document.createElement("button");
         selectBtn.classList.add("select-btn");
         selectBtn.textContent = "Select";
@@ -115,12 +115,14 @@ loadMealPlanner();
 function createMealCard(recipe, mealType) {
     const card = document.createElement("div");
     card.classList.add("meal-card");
+    
 
     const title = document.createElement("p");
     title.textContent = recipe.name;
 
     const removeBtn = document.createElement("button");
-    removeBtn.textContent = "X";
+    removeBtn.textContent = "remove";
+    removeBtn.className = "btn btn-outline-danger"
 
     removeBtn.addEventListener("click", () => {
         removeRecipeFromMeal(mealType, recipe.id);

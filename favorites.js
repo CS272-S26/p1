@@ -129,45 +129,8 @@ function getFavIdList(favRecipe,favList){
 function saveFavorites(favorites) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
 }
-export function ManageFavorites(recipe){
 
-    // collects the id of the user
-    const ID  = recipe.id || null;
+// -------------------
+//  Deprecated method 
+// -------------------
 
-    // if it's not a recipe throw and error
-    if (!recipe){
-        console.log("recipe is null, check favorites.js [ManageFavorites]")
-        throw new Error("Recipe must have a valid ID");
-    }
-
-    // else get the favorites list
-
-    // step 2, get all the favorites have to change this to an item that actually exists still in search
-    let favorites = getFavorites();
-    console.log(favorites);
-
-    // if the ID is in the favorites list of id then remove it, else add it
-    const favList = []
-    if (favorites.length > 0){
-        const listFavoritesID = favorites.array.forEach(favrecipe => {
-            const IDList = getFavIdList(favrecipe,favList)
-            return IDList
-        });
-        console.log(listFavoritesID,'list favorites ID')
-        const isFavorite = listFavoritesID.includes(); // this line determines if I remove the ID or keep it
-
-        if(isFavorite){
-            favorites = removeFavorite(ID);
-        }else{
-            favorites = addFavorite(recipe,favorites);
-        }
-    }
-    else{ // step 3 assuming no favorites, add favorite
-        favorites = addFavorite(recipe,favorites);
-    }
-    
-  
-    return favorites
-
-
-}
